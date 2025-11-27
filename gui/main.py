@@ -31,40 +31,40 @@ class NeuroNetApp:
 
     def _setup_ui(self):
         # Panel de Control (Izquierda)
-        control_frame = tk.Frame(self.root, width=250, bg="#f0f0f0", padx=10, pady=10)
+        control_frame = tk.Frame(self.root, width=250, bg="#272727", padx=60, pady=10)
         control_frame.pack(side=tk.LEFT, fill=tk.Y)
 
-        tk.Label(control_frame, text="NeuroNet Control", font=("Arial", 16, "bold"), bg="#f0f0f0").pack(pady=(0, 20))
+        tk.Label(control_frame, text="NeuroNet", font=("Arial", 16, "bold"), bg="#272727", fg="white").pack(pady=(0, 20))
 
         # Cargar Datos
         tk.Button(control_frame, text="Cargar Dataset", command=self.cargar_dataset, bg="#4CAF50", fg="white", font=("Arial", 10, "bold")).pack(fill=tk.X, pady=5)
         
-        self.lbl_info = tk.Label(control_frame, text="Nodos: 0\nAristas: 0", bg="#f0f0f0", justify=tk.LEFT)
+        self.lbl_info = tk.Label(control_frame, text="Nodos: 0\nAristas: 0", bg="#272727", fg="white", justify=tk.LEFT)
         self.lbl_info.pack(pady=10)
 
         # Analisis
-        tk.Label(control_frame, text="Análisis", font=("Arial", 12, "bold"), bg="#f0f0f0").pack(pady=(20, 5))
+        tk.Label(control_frame, text="Análisis", font=("Arial", 12, "bold"), bg="#272727", fg="white").pack(pady=(20, 5))
         
-        tk.Button(control_frame, text="Nodo Mayor Grado", command=self.calcular_mayor_grado, bg="#2196F3", fg="white").pack(fill=tk.X, pady=5)
-        self.lbl_grado = tk.Label(control_frame, text="", bg="#f0f0f0", wraplength=230)
+        tk.Button(control_frame, text="Nodo Mayor Grado", command=self.calcular_mayor_grado, bg="#2196F3", fg="white", font=("Arial", 10, "bold")).pack(fill=tk.X, pady=5)
+        self.lbl_grado = tk.Label(control_frame, text="", bg="#272727", fg="white", wraplength=230)
         self.lbl_grado.pack(pady=5)
 
         # Simulacion BFS
-        tk.Label(control_frame, text="Simulación BFS", font=("Arial", 12, "bold"), bg="#f0f0f0").pack(pady=(20, 5))
+        tk.Label(control_frame, text="Simulación BFS", font=("Arial", 12, "bold"), bg="#272727", fg="white").pack(pady=(20, 5))
         
-        tk.Label(control_frame, text="Nodo Inicio:", bg="#f0f0f0").pack(anchor="w")
+        tk.Label(control_frame, text="Nodo Inicio:", bg="#272727", fg="white").pack(anchor="w")
         self.entry_inicio = tk.Entry(control_frame)
         self.entry_inicio.pack(fill=tk.X)
 
-        tk.Label(control_frame, text="Profundidad:", bg="#f0f0f0").pack(anchor="w")
+        tk.Label(control_frame, text="Profundidad:", bg="#272727", fg="white").pack(anchor="w")
         self.entry_prof = tk.Entry(control_frame)
         self.entry_prof.insert(0, "2")
         self.entry_prof.pack(fill=tk.X)
 
-        tk.Button(control_frame, text="Ejecutar BFS", command=self.ejecutar_bfs, bg="#FF9800", fg="white").pack(fill=tk.X, pady=10)
+        tk.Button(control_frame, text="Ejecutar BFS", command=self.ejecutar_bfs, bg="#FF9800", fg="white", font=("Arial", 10, "bold")).pack(fill=tk.X, pady=5)
 
         # Area de Visualizacion (Derecha)
-        self.viz_frame = tk.Frame(self.root, bg="white")
+        self.viz_frame = tk.Frame(self.root, bg="#1e1e1e")
         self.viz_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
 
         self.fig, self.ax = plt.subplots(figsize=(5, 5))
@@ -127,14 +127,14 @@ class NeuroNetApp:
         pos = nx.spring_layout(G, seed=42)
         
         # Dibujar nodos
-        nx.draw_networkx_nodes(G, pos, ax=self.ax, node_size=300, node_color='lightblue')
+        nx.draw_networkx_nodes(G, pos, ax=self.ax, node_size=300, node_color='orange')
         
         # Resaltar nodo inicio
         if inicio in G:
             nx.draw_networkx_nodes(G, pos, ax=self.ax, nodelist=[inicio], node_size=500, node_color='red')
 
         # Dibujar aristas
-        nx.draw_networkx_edges(G, pos, ax=self.ax, edge_color='gray', arrows=True)
+        nx.draw_networkx_edges(G, pos, ax=self.ax, edge_color='black', arrows=True)
         
         # Etiquetas
         nx.draw_networkx_labels(G, pos, ax=self.ax, font_size=8)
