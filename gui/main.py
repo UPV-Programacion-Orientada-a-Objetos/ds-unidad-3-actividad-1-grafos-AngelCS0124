@@ -30,9 +30,9 @@ class NeuroNetApp:
         self._setup_ui()
 
     def _setup_ui(self):
-        # Panel de Control (Izquierda)
+        # Panel de Control (Derecha)
         control_frame = tk.Frame(self.root, width=250, bg="#272727", padx=60, pady=10)
-        control_frame.pack(side=tk.LEFT, fill=tk.Y)
+        control_frame.pack(side=tk.RIGHT, fill=tk.Y)
 
         tk.Label(control_frame, text="NeuroNet", font=("Arial", 16, "bold"), bg="#272727", fg="white").pack(pady=(0, 20))
 
@@ -63,11 +63,17 @@ class NeuroNetApp:
 
         tk.Button(control_frame, text="Ejecutar BFS", command=self.ejecutar_bfs, bg="#FF9800", fg="white", font=("Arial", 10, "bold")).pack(fill=tk.X, pady=5)
 
-        # Area de Visualizacion (Derecha)
+        # Area de Visualizacion (Izquierda)
         self.viz_frame = tk.Frame(self.root, bg="#1e1e1e")
-        self.viz_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
+        self.viz_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
         self.fig, self.ax = plt.subplots(figsize=(5, 5))
+        self.fig.patch.set_facecolor("#1e1e1e")
+        self.ax.set_facecolor("#2a2a2a")
+        self.ax.text(0.5, 0.5, "Cargue un dataset para visualizar el grafo", 
+                     ha='center', va='center', fontsize=12, color='white', transform=self.ax.transAxes)
+        self.ax.set_xticks([])
+        self.ax.set_yticks([])
         self.canvas = FigureCanvasTkAgg(self.fig, master=self.viz_frame)
         self.canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
 
@@ -134,12 +140,12 @@ class NeuroNetApp:
             nx.draw_networkx_nodes(G, pos, ax=self.ax, nodelist=[inicio], node_size=500, node_color='red')
 
         # Dibujar aristas
-        nx.draw_networkx_edges(G, pos, ax=self.ax, edge_color='black', arrows=True)
+        nx.draw_networkx_edges(G, pos, ax=self.ax, edge_color='white', arrows=True)
         
         # Etiquetas
         nx.draw_networkx_labels(G, pos, ax=self.ax, font_size=8)
 
-        self.ax.set_title(f"Subgrafo BFS desde Nodo {inicio}")
+        self.ax.set_title(f"Subgrafo BFS desde Nodo {inicio}", color='white')
         self.canvas.draw()
 
 if __name__ == "__main__":
